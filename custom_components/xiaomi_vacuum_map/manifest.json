@@ -1,0 +1,8 @@
+{
+  "domain": "xiaomi_vacuum_map",
+  "name": "Xiaomi Vacuum Map",
+  "documentation": "https://github.com/PiotrMachowski/Home-Assistant-custom-components-Xiaomi-Vacuum-Map-Camera",
+  "dependencies": [],
+  "codeowners": ["PiotrMachowski"],
+  "requirements": ["pillow"]
+}
