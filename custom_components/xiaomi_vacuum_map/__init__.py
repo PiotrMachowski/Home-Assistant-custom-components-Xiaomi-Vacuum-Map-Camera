@@ -1,0 +1,1 @@
+"""Vacuum Map Camera"""

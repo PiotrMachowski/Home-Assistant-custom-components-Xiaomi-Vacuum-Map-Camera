@@ -1,16 +1,14 @@
-from datetime import timedelta
 import logging
-import voluptuous as vol
+from datetime import timedelta
+from typing import Optional
 
+import voluptuous as vol
+from homeassistant.components.camera import (Camera, PLATFORM_SCHEMA)
 from homeassistant.const import (
     CONF_NAME,
 )
-from homeassistant.util import Throttle
-from homeassistant.components.camera import (
-    PLATFORM_SCHEMA,
-    Camera,
-)
 from homeassistant.helpers import config_validation as cv
+from homeassistant.util import Throttle
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -54,7 +52,7 @@ class VacuumCamera(Camera):
     def frame_interval(self):
         return self._frame_interval
 
-    def camera_image(self):
+    def camera_image(self, width: Optional[int] = None, height: Optional[int] = None) -> Optional[bytes]:
         self.throttled_camera_image()
         return self._last_image
 
@@ -71,7 +69,7 @@ class VacuumCamera(Camera):
         return self._name
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         return {
             "mapData": self._extractor.get_parameters(),
             "currentPos": self._extractor.get_current(),
