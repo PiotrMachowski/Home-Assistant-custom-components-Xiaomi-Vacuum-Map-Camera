@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Prepare release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download repo
+        uses: actions/checkout@v1
+
+      - name: Zip xiaomi_vacuum_map dir
+        run: |
+          cd /home/runner/work/Home-Assistant-custom-components-Xiaomi-Vacuum-Map-Camera/Home-Assistant-custom-components-Xiaomi-Vacuum-Map-Camera/custom_components/xiaomi_vacuum_map
+          zip xiaomi_vacuum_map.zip -r ./
+
+      - name: Upload zip to release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /home/runner/work/Home-Assistant-custom-components-Xiaomi-Vacuum-Map-Camera/Home-Assistant-custom-components-Xiaomi-Vacuum-Map-Camera/custom_components/xiaomi_vacuum_map/xiaomi_vacuum_map.zip
+          asset_name: xiaomi_vacuum_map.zip
+          tag: ${{ github.ref }}
+          overwrite: true
