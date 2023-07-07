@@ -5,6 +5,7 @@
 [![buycoffee.to][buycoffee_to_shield]][buycoffee_to]
 [![PayPal.Me][paypal_me_shield]][paypal_me]
 [![Revolut.Me][revolut_me_shield]][revolut_me]
+
 <!-- piotrmachowski_support_badges_end -->
 
 
