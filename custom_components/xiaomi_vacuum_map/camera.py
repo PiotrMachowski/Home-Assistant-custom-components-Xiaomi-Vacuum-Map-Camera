@@ -116,7 +116,26 @@ class Extractor:
         self._extracted_archive = False
         shutil.rmtree(self._temp + "/usr", True)
         with tarfile.open(self._temp + "/map_data.tar.gz", "r:gz") as tar:
-            tar.extractall(self._temp)
+            def is_within_directory(directory, target):
+                
+                abs_directory = os.path.abspath(directory)
+                abs_target = os.path.abspath(target)
+            
+                prefix = os.path.commonprefix([abs_directory, abs_target])
+                
+                return prefix == abs_directory
+            
+            def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+            
+                for member in tar.getmembers():
+                    member_path = os.path.join(path, member.name)
+                    if not is_within_directory(path, member_path):
+                        raise Exception("Attempted Path Traversal in Tar File")
+            
+                tar.extractall(path, members, numeric_owner=numeric_owner) 
+                
+            
+            safe_extract(tar, self._temp)
         self._extracted_archive = True
 
     def read_data(self):
